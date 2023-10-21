@@ -14,9 +14,9 @@ import org.jdamico.javax25.soundcard.Soundcard;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
-    	Soundcard.enumerate();
+	public static void main( String[] args )
+	{
+		Soundcard.enumerate();
 
 		Properties p = System.getProperties();
 
@@ -32,7 +32,7 @@ public class App
 		} catch (Exception e) {
 			System.out.println("Exception trying to create an Afsk1200 object: "+e.getMessage());
 		}
-		
+
 
 		/*** preparing to generate or capture audio packets ***/
 
@@ -57,10 +57,12 @@ public class App
 		/*** listen for incoming packets ***/
 
 		if (input != null) {
-		  System.out.printf("Listening for packets\n");
-  		//sc.openSoundInput(input);			
-	    sc.receive();
+			System.out.printf("Listening for packets\n");
+			//sc.openSoundInput(input);			
+			sc.receive();
+		}else {
+			System.err.println("Input is null!");
 		}
-		
-    }
+
+	}
 }
