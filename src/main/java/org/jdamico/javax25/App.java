@@ -1,16 +1,11 @@
 package org.jdamico.javax25;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
 import java.util.Properties;
 
 import org.jdamico.javax25.ax25.Afsk1200Modulator;
 import org.jdamico.javax25.ax25.Afsk1200MultiDemodulator;
-import org.jdamico.javax25.ax25.Packet;
 import org.jdamico.javax25.ax25.PacketDemodulator;
 import org.jdamico.javax25.radiocontrol.SerialTransmitController;
-import org.jdamico.javax25.radiocontrol.TransmitController;
 import org.jdamico.javax25.soundcard.Soundcard;
 
 /**
