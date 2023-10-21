@@ -36,8 +36,8 @@ public class App
 
 		/*** preparing to generate or capture audio packets ***/
 
-		String input = null;
-		String output = "PulseAudio Mixer";
+		String input = p.getProperty("input", null);
+		String output = p.getProperty("output", null);
 
 		int buffer_size = -1;
 		try {
