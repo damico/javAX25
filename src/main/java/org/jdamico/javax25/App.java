@@ -14,8 +14,7 @@ import org.jdamico.javax25.soundcard.Soundcard;
  */
 public class App 
 {
-	public static void main( String[] args )
-	{
+	public static void main( String[] args) {
 		Soundcard.enumerate();
 
 		Properties p = System.getProperties();

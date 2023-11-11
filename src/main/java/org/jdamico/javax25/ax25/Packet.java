@@ -140,6 +140,9 @@ public class Packet {
 			          int      control,
 			          int      protocol,
 			          byte[]   payload) {
+		
+		if(path == null) path = new String[] {};
+		
 		int n = 7 + 7 + 7*path.length + 2 + payload.length;
 		byte[] bytes = new byte[n];
 		
