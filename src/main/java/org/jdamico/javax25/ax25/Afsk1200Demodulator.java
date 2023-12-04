@@ -21,6 +21,10 @@ package org.jdamico.javax25.ax25;
 
 import java.util.Arrays;
 
+import javax.swing.JTextArea;
+
+import org.jdamico.javax25.soundcard.Soundcard;
+
 public class Afsk1200Demodulator 
   extends PacketDemodulator
   //implements HalfduplexSoundcardClient 
@@ -379,8 +383,9 @@ public class Afsk1200Demodulator
 		    			  //			              emphasis,f0_max/-f1_min,max_period_error));
 		    				if (handler!=null)
 		    				  handler.handlePacket(packet.bytesWithoutCRC());
-		    				else 
-		    					System.out.println(""+(++decode_count)+": "+packet);
+		    				else {
+		    					System.out.println((++decode_count)+": "+packet);
+		    				}
 		    			}
 		    			packet = null;
 		    			state=State.JUST_SEEN_FLAG;

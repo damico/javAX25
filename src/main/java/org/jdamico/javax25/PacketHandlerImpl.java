@@ -22,11 +22,23 @@ package org.jdamico.javax25;
 
 import org.jdamico.javax25.ax25.Packet;
 import org.jdamico.javax25.ax25.PacketHandler;
+import org.jdamico.javax25.soundcard.Soundcard;
 
 public class PacketHandlerImpl implements PacketHandler {
 	
 	public void handlePacket(byte[] bytes) {
-		System.out.println(Packet.format(bytes));
+		
+		
+		if(Soundcard.jTextArea == null) {
+			System.out.println("Packet ====>>>>"  +Packet.format(bytes));
+			
+		}else {
+			
+			String lines = Soundcard.jTextArea.getText();
+			if(lines.length() > 80000) lines = "Cleaning log...\n";  
+			Soundcard.jTextArea.setText(lines+Packet.format(bytes)+"\n");
+		}
+		
 		return;
 		/*
 		if (last!=null && Arrays.equals(last, bytes) && sample_count <= last_sample_count + 100) {

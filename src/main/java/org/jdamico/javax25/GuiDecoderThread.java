@@ -7,14 +7,16 @@ import org.jdamico.javax25.ax25.Afsk1200MultiDemodulator;
 import org.jdamico.javax25.ax25.PacketDemodulator;
 import org.jdamico.javax25.soundcard.Soundcard;
 
-public class App {
-	public static void main( String[] args) {
-		Soundcard.enumerate();
+public class GuiDecoderThread extends Thread {
+	private String input;
+	public GuiDecoderThread(String input) {
+		this.input = input;
+	}
 
+	public void run() {
 		Properties p = System.getProperties();
 
 		int rate = 48000;
-		int filter_length = 32;
 
 		PacketHandlerImpl t = new PacketHandlerImpl();
 		Afsk1200Modulator mod = null;
@@ -29,8 +31,8 @@ public class App {
 
 		/*** preparing to generate or capture audio packets ***/
 
-		String input = p.getProperty("input", null);
-		String output = p.getProperty("output", null);
+		//String input = p.getProperty("input", null);
+		String output = null;
 
 		int buffer_size = -1;
 		try {
@@ -41,10 +43,10 @@ public class App {
 		}
 
 		Soundcard sc = new Soundcard(rate,input,output,buffer_size,multi,mod);
+		
+		
 
-		
-			sc.displayAudioLevel();
-		
+		sc.displayAudioLevel();
 
 
 		/*** listen for incoming packets ***/
@@ -56,6 +58,6 @@ public class App {
 		}else {
 			System.err.println("Input is null!");
 		}
-
 	}
+
 }

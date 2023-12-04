@@ -50,7 +50,7 @@
 							<archive>
 								<manifest>
 									<mainClass>
-										org.jdamico.javax25.App
+										org.jdamico.javax25.GuiApp
 									</mainClass>
 								</manifest>
 
