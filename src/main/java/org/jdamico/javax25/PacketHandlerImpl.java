@@ -20,6 +20,8 @@
  */
 package org.jdamico.javax25;
 
+import java.util.Date;
+
 import org.jdamico.javax25.ax25.Packet;
 import org.jdamico.javax25.ax25.PacketHandler;
 import org.jdamico.javax25.soundcard.Soundcard;
@@ -28,15 +30,23 @@ public class PacketHandlerImpl implements PacketHandler {
 	
 	public void handlePacket(byte[] bytes) {
 		
+		String data = Packet.format(bytes);
 		
 		if(Soundcard.jTextArea == null) {
-			System.out.println("Packet ====>>>>"  +Packet.format(bytes));
+			System.out.println("Packet ====>>>>"  +data);
+		
+		
 			
 		}else {
 			
 			String lines = Soundcard.jTextArea.getText();
 			if(lines.length() > 80000) lines = "Cleaning log...\n";  
-			Soundcard.jTextArea.setText(lines+Packet.format(bytes)+"\n");
+			Soundcard.jTextArea.setText(lines+data+"\n");
+		}
+		
+		if(Soundcard.receivedPackedMap != null) {
+			Date now = new Date();
+			Soundcard.receivedPackedMap.put(now.getTime(), data);
 		}
 		
 		return;

@@ -29,6 +29,7 @@ import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.Properties;
 import java.util.List;
+import java.util.Map;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
@@ -45,7 +46,7 @@ public class Soundcard {
 	
 	public static JTextArea jTextArea = null;
 	public static JLabel audioLevelValue = null;
-
+	public static Map<Long, String> receivedPackedMap;
 	public static boolean running = true;
 
 	private int rate;

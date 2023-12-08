@@ -19,17 +19,14 @@
  */
 package org.jdamico.javax25.ax25;
 
-import java.util.Arrays;
-
-import javax.swing.JTextArea;
-
-import org.jdamico.javax25.soundcard.Soundcard;
+import java.util.Map;
 
 public class Afsk1200Demodulator 
   extends PacketDemodulator
   //implements HalfduplexSoundcardClient 
   {
-  private float[] td_filter;
+  
+private float[] td_filter;
   private float[] cd_filter;
   
   private int rate_index;
