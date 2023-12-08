@@ -314,7 +314,7 @@ public class Packet {
 		
 		
 		StringBuilder builder = new StringBuilder();
-		builder.append("[");
+		//builder.append("[");
 		
 		builder.append(source);
 		builder.append('>');
@@ -338,7 +338,7 @@ public class Packet {
 		}
 		//builder.append(Arrays.toString(packet));
 		 */
-		builder.append("]");
+		//builder.append("]");
 		return builder.toString();
 
 	}
