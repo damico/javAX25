@@ -9,8 +9,11 @@ import org.jdamico.javax25.soundcard.Soundcard;
 
 public class GuiDecoderThread extends Thread {
 	private String input;
-	public GuiDecoderThread(String input) {
+	private String output;
+	public GuiDecoderThread(String input, String output) {
 		this.input = input;
+		this.output = output;
+		
 	}
 
 	public void run() {
@@ -19,20 +22,16 @@ public class GuiDecoderThread extends Thread {
 		int rate = 48000;
 
 		PacketHandlerImpl t = new PacketHandlerImpl();
-		Afsk1200Modulator mod = null;
 		PacketDemodulator multi = null;
 		try {
 			multi = new Afsk1200MultiDemodulator(rate,t);
-			mod = new Afsk1200Modulator(rate);
+			GuiApp.mod = new Afsk1200Modulator(rate);
 		} catch (Exception e) {
 			System.out.println("Exception trying to create an Afsk1200 object: "+e.getMessage());
 		}
 
 
 		/*** preparing to generate or capture audio packets ***/
-
-		//String input = p.getProperty("input", null);
-		String output = null;
 
 		int buffer_size = -1;
 		try {
@@ -42,11 +41,11 @@ public class GuiDecoderThread extends Thread {
 			System.err.println("Exception parsing buffersize "+e.toString());
 		}
 
-		Soundcard sc = new Soundcard(rate,input,output,buffer_size,multi,mod);
+		GuiApp.sc = new Soundcard(rate,input,output,buffer_size,multi,GuiApp.mod);
 		
 		
 
-		sc.displayAudioLevel();
+		GuiApp.sc.displayAudioLevel();
 
 
 		/*** listen for incoming packets ***/
@@ -54,7 +53,7 @@ public class GuiDecoderThread extends Thread {
 		if (input != null) {
 			System.out.printf("Listening for packets\n");
 			//sc.openSoundInput(input);			
-			sc.receive();
+			GuiApp.sc.receive();
 		}else {
 			System.err.println("Input is null!");
 		}

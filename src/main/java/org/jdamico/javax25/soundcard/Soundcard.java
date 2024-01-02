@@ -118,8 +118,8 @@ public class Soundcard {
 
 		for (Mixer.Info mi: mis) {
 			String name = mi.getName();
-			//System.out.println("  "+mi.getName()+": "+mi.getVendor()+": "+mi.getDescription());
-			//System.out.println("  "+mi.getName());
+			System.out.println("  "+mi.getName()+": "+mi.getVendor()+": "+mi.getDescription());
+			System.out.println("  "+mi.getName());
 
 			Line.Info[] lis;
 			lis = AudioSystem.getMixer(mi).getSourceLineInfo();
@@ -298,6 +298,25 @@ public class Soundcard {
 			sdl=null;
 			System.err.println("Cannot open sound output device device");
 		}
+	}
+
+	public static List<String> getOutputDevicesLst() {
+		List<String> lst = new ArrayList<>();
+		Mixer.Info[] mis = AudioSystem.getMixerInfo();
+
+		for (Mixer.Info mi: mis) {
+			String name = mi.getName();
+			Line.Info[] lis;
+			lis = AudioSystem.getMixer(mi).getSourceLineInfo();
+			for (Line.Info li: lis) {
+				if (SourceDataLine.class.equals(li.getLineClass())) {
+					lst.add(name);
+
+				}
+				
+			}			
+		}
+		return lst;
 	}
 
 
