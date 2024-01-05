@@ -31,7 +31,7 @@ public class PacketHandlerImpl implements PacketHandler {
 	public void handlePacket(byte[] bytes) {
 		
 		String data = Packet.format(bytes);
-		
+		Date now = new Date();
 		if(Soundcard.jTextArea == null) {
 			System.out.println("Packet ====>>>>"  +data);
 		
@@ -41,11 +41,10 @@ public class PacketHandlerImpl implements PacketHandler {
 			
 			String lines = Soundcard.jTextArea.getText();
 			if(lines.length() > 80000) lines = "Cleaning log...\n";  
-			Soundcard.jTextArea.setText(lines+data+"\n");
+			Soundcard.jTextArea.setText(lines+"["+BasicHelper.getInstance().dateToString(now, Constants.DATE_TIME_FORMAT)+"] "+data+"\n");
 		}
 		
 		if(Soundcard.receivedPackedMap != null) {
-			Date now = new Date();
 			Soundcard.receivedPackedMap.put(now.getTime(), data);
 		}
 		

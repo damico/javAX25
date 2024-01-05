@@ -119,7 +119,6 @@ public class Soundcard {
 		for (Mixer.Info mi: mis) {
 			String name = mi.getName();
 			System.out.println("  "+mi.getName()+": "+mi.getVendor()+": "+mi.getDescription());
-			System.out.println("  "+mi.getName());
 
 			Line.Info[] lis;
 			lis = AudioSystem.getMixer(mi).getSourceLineInfo();
@@ -144,17 +143,16 @@ public class Soundcard {
 	}
 
 
-	public static List<String> getInputDevicesLst() {
-		List<String> lst = new ArrayList<>();
+	public static List<Mixer.Info> getInputDevicesLst() {
+		List<Mixer.Info> lst = new ArrayList<>();
 		Mixer.Info[] mis = AudioSystem.getMixerInfo();
 
 		for (Mixer.Info mi: mis) {
-			String name = mi.getName();
 			Line.Info[] lis;
 			lis = AudioSystem.getMixer(mi).getTargetLineInfo();
 			for (Line.Info li: lis) {
 				if (TargetDataLine.class.equals(li.getLineClass())) {
-					lst.add(name);
+					lst.add(mi);
 
 				}
 				
@@ -172,7 +170,10 @@ public class Soundcard {
 		int buffer_size_in_samples = (int) Math.round(latency_ms * ((double) rate / 1000.0) / 4.0);
 		capture_buffer = new byte[2*buffer_size_in_samples];
 		if (tdl==null) {
-			System.err.println("No sound input device, receiver exiting.");
+			String errMsg = "No sound input device, receiver exiting.\n";
+			if(Soundcard.jTextArea != null) {
+				Soundcard.jTextArea.setText(Soundcard.jTextArea.getText()+errMsg);
+			}else System.err.println(errMsg);
 			return;
 		} 
 		tdl.flush();
@@ -300,20 +301,18 @@ public class Soundcard {
 		}
 	}
 
-	public static List<String> getOutputDevicesLst() {
-		List<String> lst = new ArrayList<>();
+	public static List<Mixer.Info> getOutputDevicesLst() {
+		List<Mixer.Info> lst = new ArrayList<>();
 		Mixer.Info[] mis = AudioSystem.getMixerInfo();
 
 		for (Mixer.Info mi: mis) {
-			String name = mi.getName();
 			Line.Info[] lis;
 			lis = AudioSystem.getMixer(mi).getSourceLineInfo();
 			for (Line.Info li: lis) {
 				if (SourceDataLine.class.equals(li.getLineClass())) {
-					lst.add(name);
+					lst.add(mi);
 
 				}
-				
 			}			
 		}
 		return lst;

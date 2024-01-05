@@ -1,7 +1,9 @@
-package org.jdamico.javax25;
+package org.jdamico.javax25.threads;
 
 import java.util.Properties;
 
+import org.jdamico.javax25.GuiApp;
+import org.jdamico.javax25.PacketHandlerImpl;
 import org.jdamico.javax25.ax25.Afsk1200Modulator;
 import org.jdamico.javax25.ax25.Afsk1200MultiDemodulator;
 import org.jdamico.javax25.ax25.PacketDemodulator;
@@ -51,11 +53,16 @@ public class GuiDecoderThread extends Thread {
 		/*** listen for incoming packets ***/
 
 		if (input != null) {
-			System.out.printf("Listening for packets\n");
-			//sc.openSoundInput(input);			
+			String listeningMsg = "Listening for packets\n";
+			if(Soundcard.jTextArea != null) {
+				Soundcard.jTextArea.setText(Soundcard.jTextArea.getText()+listeningMsg);
+			}else System.out.printf(listeningMsg);	
 			GuiApp.sc.receive();
 		}else {
-			System.err.println("Input is null!");
+			String errMsg = "Input is null!";
+			if(Soundcard.jTextArea != null) {
+				Soundcard.jTextArea.setText(Soundcard.jTextArea.getText()+errMsg);
+			}else System.err.println(errMsg);
 		}
 	}
 
